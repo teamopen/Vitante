@@ -10,9 +10,9 @@ namespace Vitante {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         InputHandler inputHandler;
+        Character player;
 
-        public Vitante()
-            : base() {
+        public Vitante() : base() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -26,6 +26,9 @@ namespace Vitante {
         protected override void Initialize() {
             inputHandler = new InputHandler();
             inputHandler.onExit += new InputHandler.InputEvent(Exit);
+            player = new Character(this.Content.Load<Texture2D>("p1_front"));
+            inputHandler.onMoveLeft += new InputHandler.InputEvent(player.MoveLeft);
+            inputHandler.onMoveRight += new InputHandler.InputEvent(player.MoveRight);
 
             base.Initialize();
         }
@@ -56,6 +59,7 @@ namespace Vitante {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
             inputHandler.Update();
+            player.Update();
 
             base.Update(gameTime);
         }
@@ -67,8 +71,9 @@ namespace Vitante {
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            player.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

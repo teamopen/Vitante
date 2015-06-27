@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Character.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Vitante.cs" />
